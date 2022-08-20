@@ -2,7 +2,7 @@ use criterion::{criterion_group, criterion_main, Criterion};
 use genbench::Crate;
 use oorandom::Rand32;
 
-pub fn tests() -> [Box<dyn Crate>; 15] {
+pub fn tests() -> [Box<dyn Crate>; 16] {
     [
         Box::new(genbench::bvmap::CrateBvMap()),
         Box::new(genbench::stash::CrateStash()),
@@ -19,6 +19,7 @@ pub fn tests() -> [Box<dyn Crate>; 15] {
         Box::new(genbench::generational_arena::CrateGenerationalArena()),
         Box::new(genbench::moomap::CrateMooSlotMap()),
         Box::new(genbench::thunderdome::CrateThunderdome()),
+        Box::new(genbench::pulz_arena::CratePulzArena()),
     ]
 }
 

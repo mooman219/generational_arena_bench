@@ -11,6 +11,7 @@ pub mod slotmap;
 pub mod stable_vec;
 pub mod stash;
 pub mod thunderdome;
+pub mod pulz_arena;
 
 use criterion::Bencher;
 
