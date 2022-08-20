@@ -1,0 +1,23 @@
+[package]
+name = "genbench"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+smallbitvec = "2.4"
+
+beach_map = "*"
+compactmap = "*"
+criterion = "0.3"
+id-vec = "*"
+thunderdome = "*"
+generational-arena = "*"
+oorandom = "*"
+slab = "*"
+slotmap = "*"
+stable-vec = "*"
+stash = "*"
+
+[[bench]]
+name = "basic" 
+harness = false
