@@ -22,7 +22,10 @@ pub struct NaiveSlotMap<T> {
 
 impl<T> NaiveSlotMap<T> {
     pub fn new() -> NaiveSlotMap<T> {
-        NaiveSlotMap::with_capacity(64)
+        NaiveSlotMap {
+            slots: Vec::new(),
+            data: Vec::new(),
+        }
     }
 
     pub fn with_capacity(capacity: usize) -> NaiveSlotMap<T> {
