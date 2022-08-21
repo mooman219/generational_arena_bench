@@ -7,7 +7,7 @@
 | InsertUsed | - Create an empty arena.<br>- Insert 10,000 entities.<br>- Remove all entities sequentially. | Insert 10,000 entities.              |
 | Iter       | - Create an empty arena.<br>- Insert 10,000 entities.                                        | Iterate over the arena sequentially. |
 | IterHalf   | - Create an empty arena.<br>- Insert 10,000 entities.<br>- Remove 5,000 entities randomly.   | Iterate over the arena sequentially. |
-| Remove     | - Create an empty arena.<br>- Insert 10,000 entities.<br>- Remove all entities sequentially. | Remove all entities randomly.        |
+| Remove     | - Create an empty arena.<br>- Insert 10,000 entities.                                        | Remove all entities randomly.        |
 
 # Benchmarks: Generational Arenas
 This includes benchmarks for crates typically considered to be generational arenas. `idvec` is

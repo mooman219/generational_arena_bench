@@ -43,7 +43,7 @@ impl<T> NaiveSlotMap<T> {
         self.data.clear();
         let mut counter = 0;
         for slot in &mut self.slots {
-            slot.version = slot.version.wrapping_add(1);
+            slot.version += 1;
             slot.inner = counter;
             counter += 1;
         }
@@ -79,7 +79,7 @@ impl<T> NaiveSlotMap<T> {
             return None;
         }
         let remove_index = slot.outer;
-        slot.version += slot.version.wrapping_add(1);
+        slot.version += 1;
         let removed = self.data.swap_remove(remove_index as usize);
         unsafe {
             let slot = self.slots.get_unchecked_mut(self.data.len());

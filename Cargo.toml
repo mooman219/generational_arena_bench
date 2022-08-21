@@ -5,14 +5,14 @@ edition = "2021"
 
 [dependencies]
 smallbitvec = "2.4"
+criterion = "0.3"
+oorandom = "*"
 
 beach_map = "*"
 compactmap = "*"
-criterion = "0.3"
 id-vec = "*"
 thunderdome = "*"
 generational-arena = "*"
-oorandom = "*"
 pulz-arena = "0.4.0"
 slab = "*"
 slotmap = "*"
