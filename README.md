@@ -1,3 +1,14 @@
+# Procedure
+
+| Test     | Setup                                                                                                         | Benchmark                            |
+|----------|---------------------------------------------------------------------------------------------------------------|--------------------------------------|
+| Get      | - Create an empty arena.<br>- Populate the arena with 10,000 entities.                                        | Query for 10,000 random entities.    |
+| Insert   | - Create an empty arena.                                                                                      | Insert 10,000 entities.              |
+| Iter     | - Create an empty arena.<br>- Populate the arena with 10,000 entities.                                        | Iterate over the arena sequentially. |
+| IterHalf | - Create an empty arena.<br>- Populate the arena with 10,000 entities.<br>- Remove 5,000 entities randomly.   | Iterate over the arena sequentially. |
+| Reinsert | - Create an empty arena.<br>- Populate the arena with 10,000 entities.<br>- Remove all entities sequentially. | Insert 10,000 entities.              |
+| Remove   | - Create an empty arena.<br>- Populate the arena with 10,000 entities.<br>- Remove all entities sequentially. | Remove all entities randomly.        |
+
 # Benchmarks: Generational Arenas
 This includes benchmarks for crates typically considered to be generational arenas. `idvec` is
 omitted from these charts because some of its operations take a log time, blowing up the scale.

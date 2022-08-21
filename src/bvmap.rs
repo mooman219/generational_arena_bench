@@ -40,7 +40,7 @@ impl Crate for CrateBvMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: BvMap<usize, usize> = BvMap::new();
         for a in 0..size {
             map.insert(a);
@@ -48,8 +48,8 @@ impl Crate for CrateBvMap {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(a);
+                for a in lookup {
+                    i.remove(*a);
                 }
             },
             BatchSize::SmallInput,

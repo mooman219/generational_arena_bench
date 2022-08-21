@@ -40,7 +40,7 @@ impl Crate for CrateStash {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: Stash<usize, usize> = Stash::new();
         for a in 0..size {
             map.put(a);
@@ -48,8 +48,8 @@ impl Crate for CrateStash {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.take(a);
+                for a in lookup {
+                    i.take(*a);
                 }
             },
             BatchSize::SmallInput,
@@ -148,7 +148,7 @@ impl Crate for CrateUniqueStash {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: UniqueStash<usize> = UniqueStash::new();
         let mut keys = Vec::new();
         for a in 0..size {
@@ -157,8 +157,8 @@ impl Crate for CrateUniqueStash {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.take(keys[a]);
+                for a in lookup {
+                    i.take(keys[*a]);
                 }
             },
             BatchSize::SmallInput,

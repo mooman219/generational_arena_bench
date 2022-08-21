@@ -17,7 +17,7 @@ pub fn tests() -> [Box<dyn Crate>; 16] {
         Box::new(genbench::id_vec::CrateIdVec()),
         Box::new(genbench::compactmap::CrateCompactMap()),
         Box::new(genbench::generational_arena::CrateGenerationalArena()),
-        Box::new(genbench::moomap::CrateMooSlotMap()),
+        Box::new(genbench::naive::CrateMooSlotMap()),
         Box::new(genbench::thunderdome::CrateThunderdome()),
         Box::new(genbench::pulz_arena::CratePulzArena()),
     ]
@@ -46,9 +46,23 @@ fn reinserts(c: &mut Criterion) {
 fn remove(c: &mut Criterion) {
     let size = 10_000;
     let mut g = c.benchmark_group("Remove");
+
+    // Lookup is being populated with all 10,000 indicies with a non-linear distribution.
+    let mut rng = Rand32::new(17534350047697527989);
+    let mut lookup = Vec::with_capacity(size);
+    for i in 0..size {
+        lookup.push(i);
+    }
+    for i in 0..size {
+        let t = rng.rand_u32() as usize % size;
+        let temp = lookup[i];
+        lookup[i] = lookup[t];
+        lookup[t] = temp;
+    }
+
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
-            test.remove(b, size);
+            test.remove(b, &lookup, size);
         });
     }
 }
@@ -56,7 +70,7 @@ fn remove(c: &mut Criterion) {
 fn get(c: &mut Criterion) {
     let size = 10_000;
     let mut rng = Rand32::new(17534350047697527989);
-    let mut lookup = Vec::new();
+    let mut lookup = Vec::with_capacity(size);
     for _ in 0..size {
         lookup.push(rng.rand_u32() as usize % size);
     }
@@ -81,7 +95,7 @@ fn iterate(c: &mut Criterion) {
 fn reiterate(c: &mut Criterion) {
     let size = 10_000;
     let mut rng = Rand32::new(17534350047697527989);
-    let mut lookup = Vec::new();
+    let mut lookup = Vec::with_capacity(size);
     for i in 0..size {
         if rng.rand_float() < 0.5 {
             lookup.push(i);

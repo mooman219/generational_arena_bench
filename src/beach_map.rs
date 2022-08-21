@@ -42,7 +42,7 @@ impl Crate for CrateBeachMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         b.iter_batched(
             || {
                 let mut map: BeachMap<usize, usize> = BeachMap::new();
@@ -52,9 +52,9 @@ impl Crate for CrateBeachMap {
                 }
                 (map, keys)
             },
-            |(mut i, k)| {
-                for a in 0..size {
-                    i.remove(k[a]);
+            |(mut i, keys)| {
+                for a in lookup {
+                    i.remove(keys[*a]);
                 }
             },
             BatchSize::SmallInput,

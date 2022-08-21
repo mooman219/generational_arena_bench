@@ -1,4 +1,4 @@
-use crate::extra::moomap::NaiveSlotMap;
+use crate::extra::naive::NaiveSlotMap;
 use crate::Crate;
 use criterion::{black_box, BatchSize, Bencher};
 
@@ -41,7 +41,7 @@ impl Crate for CrateMooSlotMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: NaiveSlotMap<usize> = NaiveSlotMap::new();
         let mut keys = Vec::new();
         for a in 0..size {
@@ -50,8 +50,8 @@ impl Crate for CrateMooSlotMap {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(keys[a]);
+                for a in lookup {
+                    i.remove(keys[*a]);
                 }
             },
             BatchSize::SmallInput,

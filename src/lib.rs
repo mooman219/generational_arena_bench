@@ -5,13 +5,13 @@ pub mod bvmap;
 pub mod compactmap;
 pub mod generational_arena;
 pub mod id_vec;
-pub mod moomap;
+pub mod naive;
+pub mod pulz_arena;
 pub mod slab;
 pub mod slotmap;
 pub mod stable_vec;
 pub mod stash;
 pub mod thunderdome;
-pub mod pulz_arena;
 
 use criterion::Bencher;
 
@@ -28,7 +28,7 @@ pub trait Crate {
 
     /// Setup: Insert size elements.
     /// Bench: Remove size elements.
-    fn remove(&self, b: &mut Bencher, size: usize);
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize);
 
     /// Setup: Insert size elements.
     /// Bench: Get all element indicies from lookup.

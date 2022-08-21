@@ -1,2 +1,3 @@
 pub mod bvmap;
-pub mod moomap;
+pub mod naive;
+pub mod unique;

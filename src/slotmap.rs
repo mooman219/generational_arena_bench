@@ -41,7 +41,7 @@ impl Crate for CrateSlotMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: SlotMap<DefaultKey, usize> = SlotMap::new();
         let mut keys = Vec::new();
         for a in 0..size {
@@ -50,8 +50,8 @@ impl Crate for CrateSlotMap {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(keys[a]);
+                for a in lookup {
+                    i.remove(keys[*a]);
                 }
             },
             BatchSize::SmallInput,
@@ -151,7 +151,7 @@ impl Crate for CrateHopSlotMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: HopSlotMap<DefaultKey, usize> = HopSlotMap::new();
         let mut keys = Vec::new();
         for a in 0..size {
@@ -160,8 +160,8 @@ impl Crate for CrateHopSlotMap {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(keys[a]);
+                for a in lookup {
+                    i.remove(keys[*a]);
                 }
             },
             BatchSize::SmallInput,
@@ -261,7 +261,7 @@ impl Crate for CrateDenseSlotMap {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: DenseSlotMap<DefaultKey, usize> = DenseSlotMap::new();
         let mut keys = Vec::new();
         for a in 0..size {
@@ -270,8 +270,8 @@ impl Crate for CrateDenseSlotMap {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(keys[a]);
+                for a in lookup {
+                    i.remove(keys[*a]);
                 }
             },
             BatchSize::SmallInput,

@@ -40,7 +40,7 @@ impl Crate for CrateExternStableVec {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: ExternStableVec<usize> = ExternStableVec::new();
         for a in 0..size {
             map.push(a);
@@ -48,8 +48,8 @@ impl Crate for CrateExternStableVec {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(a);
+                for a in lookup {
+                    i.remove(*a);
                 }
             },
             BatchSize::SmallInput,
@@ -147,7 +147,7 @@ impl Crate for CrateInlineStableVec {
         );
     }
 
-    fn remove(&self, b: &mut Bencher, size: usize) {
+    fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         let mut map: InlineStableVec<usize> = InlineStableVec::new();
         for a in 0..size {
             map.push(a);
@@ -155,8 +155,8 @@ impl Crate for CrateInlineStableVec {
         b.iter_batched_ref(
             || map.clone(),
             |i| {
-                for a in 0..size {
-                    i.remove(a);
+                for a in lookup {
+                    i.remove(*a);
                 }
             },
             BatchSize::SmallInput,
