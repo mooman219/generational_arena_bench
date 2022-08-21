@@ -35,7 +35,7 @@ fn inserts(c: &mut Criterion) {
 
 fn reinserts(c: &mut Criterion) {
     let size = 10_000;
-    let mut g = c.benchmark_group("ReInsert");
+    let mut g = c.benchmark_group("InsertUsed");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.reinsert(b, size);
