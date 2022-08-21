@@ -49,15 +49,10 @@ fn remove(c: &mut Criterion) {
 
     // Lookup is being populated with all 10,000 indicies with a non-linear distribution.
     let mut rng = Rand32::new(17534350047697527989);
-    let mut lookup = Vec::with_capacity(size);
-    for i in 0..size {
-        lookup.push(i);
-    }
+    let mut lookup = (0..size).collect::<Vec<usize>>();
     for i in 0..size {
         let t = rng.rand_u32() as usize % size;
-        let temp = lookup[i];
-        lookup[i] = lookup[t];
-        lookup[t] = temp;
+        lookup.swap(i, t);
     }
 
     for test in self::tests() {
