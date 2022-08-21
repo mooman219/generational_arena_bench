@@ -1,4 +1,6 @@
-use criterion::{criterion_group, criterion_main, Criterion};
+use criterion::{
+    criterion_group, criterion_main, measurement::WallTime, BenchmarkGroup, Criterion,
+};
 use genbench::Crate;
 use oorandom::Rand32;
 
@@ -23,9 +25,15 @@ pub fn tests() -> [Box<dyn Crate>; 16] {
     ]
 }
 
+fn configure<'a>(c: &'a mut Criterion, name: &'a str) -> BenchmarkGroup<'a, WallTime> {
+    let mut g = c.benchmark_group(name);
+    g.sample_size(200);
+    g
+}
+
 fn inserts(c: &mut Criterion) {
     let size = 10_000;
-    let mut g = c.benchmark_group("Insert");
+    let mut g = configure(c, "Insert");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.insert(b, size);
@@ -35,7 +43,7 @@ fn inserts(c: &mut Criterion) {
 
 fn reinserts(c: &mut Criterion) {
     let size = 10_000;
-    let mut g = c.benchmark_group("InsertUsed");
+    let mut g = configure(c, "InsertUsed");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.reinsert(b, size);
@@ -45,7 +53,7 @@ fn reinserts(c: &mut Criterion) {
 
 fn remove(c: &mut Criterion) {
     let size = 10_000;
-    let mut g = c.benchmark_group("Remove");
+    let mut g = configure(c, "Remove");
 
     // Lookup is being populated with all 10,000 indicies with a non-linear distribution.
     let mut rng = Rand32::new(17534350047697527989);
@@ -69,7 +77,7 @@ fn get(c: &mut Criterion) {
     for _ in 0..size {
         lookup.push(rng.rand_u32() as usize % size);
     }
-    let mut g = c.benchmark_group("Get");
+    let mut g = configure(c, "Get");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.get(b, &lookup, size);
@@ -79,7 +87,7 @@ fn get(c: &mut Criterion) {
 
 fn iterate(c: &mut Criterion) {
     let size = 10_000;
-    let mut g = c.benchmark_group("Iter");
+    let mut g = configure(c, "Iter");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.iterate(b, size);
@@ -96,7 +104,7 @@ fn reiterate(c: &mut Criterion) {
             lookup.push(i);
         }
     }
-    let mut g = c.benchmark_group("IterHalf");
+    let mut g = configure(c, "IterHalf");
     for test in self::tests() {
         g.bench_function(test.name(), |b| {
             test.reiterate(b, &lookup, size);
