@@ -13,6 +13,8 @@
 This includes benchmarks for crates typically considered to be generational arenas. `idvec` is
 omitted from these charts because some of its operations take a log time, blowing up the scale.
 
+This was run on an [AMD 3950x](https://www.amd.com/en/products/cpu/amd-ryzen-9-3950x).
+
 ## Linear graph - `idvec` removed
 ![](images/bench_gen_linear.png)
 
