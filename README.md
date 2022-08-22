@@ -1,3 +1,22 @@
+# Crates
+| BvMap             | https://github.com/spersson/bvmap/                    |
+|-------------------|-------------------------------------------------------|
+| Stash             | https://github.com/Stebalien/stash-rs                 |
+| UniqueStash       | https://github.com/Stebalien/stash-rs                 |
+| SlotMap           | https://github.com/orlp/slotmap                       |
+| HopSlotMap        | https://github.com/orlp/slotmap                       |
+| DenseSlotMap      | https://github.com/orlp/slotmap                       |
+| Slab              | https://github.com/tokio-rs/slab                      |
+| BeachMap          | https://github.com/leudz/beach_map                    |
+| ExternStableVec   | https://github.com/LukasKalbertodt/stable-vec         |
+| InlineStableVec   | https://github.com/LukasKalbertodt/stable-vec         |
+| IdVec             | https://github.com/nical/vodk.rs                      |
+| CompactMap        | https://github.com/vi/compactmap                      |
+| GenerationalArena | https://github.com/fitzgen/generational-arena         |
+| NaiveSlotMap      | https://github.com/mooman219/generational_arena_bench |
+| Thunderdome       | https://github.com/LPGhatguy/thunderdome              |
+| pulz-arena        | https://github.com/HellButcher/pulz                   |
+
 # Procedure
   
 | Test       | Setup                                                                                        | Benchmark                            |
@@ -8,6 +27,8 @@
 | Iter       | - Create an empty arena.<br>- Insert 10,000 entities.                                        | Iterate over the arena sequentially. |
 | IterHalf   | - Create an empty arena.<br>- Insert 10,000 entities.<br>- Remove 5,000 entities randomly.   | Iterate over the arena sequentially. |
 | Remove     | - Create an empty arena.<br>- Insert 10,000 entities.                                        | Remove all entities randomly.        |
+
+The lower bound of the 95% confidence interval is used to reduce run to run noise. This likely under-penalizes indirection overhead, so take measurements with a grain of salt.  
 
 # Benchmarks: Generational Arenas
 This includes benchmarks for crates typically considered to be generational arenas. `idvec` is
