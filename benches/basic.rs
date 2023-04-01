@@ -4,7 +4,7 @@ use criterion::{
 use genbench::Crate;
 use oorandom::Rand32;
 
-pub fn tests() -> [Box<dyn Crate>; 16] {
+pub fn tests() -> [Box<dyn Crate>; 18] {
     [
         Box::new(genbench::bvmap::CrateBvMap()),
         Box::new(genbench::stash::CrateStash()),
@@ -22,6 +22,8 @@ pub fn tests() -> [Box<dyn Crate>; 16] {
         Box::new(genbench::naive::CrateMooSlotMap()),
         Box::new(genbench::thunderdome::CrateThunderdome()),
         Box::new(genbench::pulz_arena::CratePulzArena()),
+        Box::new(genbench::indextree::CrateIndextree()),
+        Box::new(genbench::generational_indextree::CrateGenerationalIndextree()),
     ]
 }
 
