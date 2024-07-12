@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-smallbitvec = "2.4"
-criterion = "0.3"
+smallbitvec = "2.5.3"
+criterion = "0.5.1"
 oorandom = "*"
 
 beach_map = "*"

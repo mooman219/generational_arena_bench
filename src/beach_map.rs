@@ -11,7 +11,7 @@ impl Crate for CrateBeachMap {
     fn insert(&self, b: &mut Bencher, size: usize) {
         b.iter_batched(
             || BeachMap::new(),
-            |mut i: BeachMap<usize, usize>| {
+            |mut i: BeachMap<usize>| {
                 for a in 0..size {
                     i.insert(a);
                 }
@@ -23,7 +23,7 @@ impl Crate for CrateBeachMap {
     fn reinsert(&self, b: &mut Bencher, size: usize) {
         b.iter_batched(
             || {
-                let mut map: BeachMap<usize, usize> = BeachMap::new();
+                let mut map: BeachMap<usize> = BeachMap::new();
                 let mut keys = Vec::new();
                 for a in 0..size {
                     keys.push(map.insert(a));
@@ -45,7 +45,7 @@ impl Crate for CrateBeachMap {
     fn remove(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         b.iter_batched(
             || {
-                let mut map: BeachMap<usize, usize> = BeachMap::new();
+                let mut map: BeachMap<usize> = BeachMap::new();
                 let mut keys = Vec::new();
                 for a in 0..size {
                     keys.push(map.insert(a));
@@ -64,7 +64,7 @@ impl Crate for CrateBeachMap {
     fn get(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         b.iter_batched(
             || {
-                let mut map: BeachMap<usize, usize> = BeachMap::new();
+                let mut map: BeachMap<usize> = BeachMap::new();
                 let mut keys = Vec::new();
                 for a in 0..size {
                     keys.push(map.insert(a));
@@ -83,7 +83,7 @@ impl Crate for CrateBeachMap {
     fn iterate(&self, b: &mut Bencher, size: usize) {
         b.iter_batched(
             || {
-                let mut map: BeachMap<usize, usize> = BeachMap::new();
+                let mut map: BeachMap<usize> = BeachMap::new();
                 let mut keys = Vec::new();
                 for a in 0..size {
                     keys.push(map.insert(a));
@@ -102,7 +102,7 @@ impl Crate for CrateBeachMap {
     fn reiterate(&self, b: &mut Bencher, lookup: &Vec<usize>, size: usize) {
         b.iter_batched(
             || {
-                let mut map: BeachMap<usize, usize> = BeachMap::new();
+                let mut map: BeachMap<usize> = BeachMap::new();
                 let mut keys = Vec::new();
                 for a in 0..size {
                     keys.push(map.insert(a));
